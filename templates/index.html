@@ -15,37 +15,11 @@
       <h1>{{ error }}</h1>
     {% else %}
       <div class="row">
-        <section class='col-xs-12 col-sm-4 col-md-4'>
-          {% if is_household_garbage_collection_day %}
-            <h2 class="announcement">Household Garbage collection day: Green bin!</h2>
-          {% endif %}
-          {% if is_foodwaste_collection_day %}
-            <h2  class="announcement brown">Foodwaste collection day: Brown bin!</h2>
-          {% endif %}
-        </section>
-      </div>
-      <div class="row">
-        <section class='col-xs-12 col-sm-6 col-md-6'>
-          <section>
-            <h2><u>Bandhagsvägen | Bus</u></h2>
-            <h1 class="next_departure">{{ bandhv_next[0] }} </h1>
-            <p>Next: <span class="next_next_departure">{{ bandhv_next[1] }}</span></p>
-          </section>
-        </section>
         <section class="col-xs-12 col-sm-6 col-md-6">
           <section>
             <h2><u>Midsommarkransen | Metro</u></h2>
             <h1 class="next_departure">{{ mids_next[0] }} </h1>
             <p>Next: <span class="next_next_departure">{{ mids_next[1] }}</span></p>
-          </section>
-        </section>
-      </div>
-      <div class="row">
-        <section class='col-xs-12 col-sm-12 col-md-12'>
-          <section>
-            <h3 class="secondary_next"><u>Bus to Telefonplan</u>:
-              <span>{{ grondal_next[0] }}</span> </h3>
-            <p>Next: <span class="secondary_next_next">{{ grondal_next[1] }}</span></p>
           </section>
         </section>
       </div>

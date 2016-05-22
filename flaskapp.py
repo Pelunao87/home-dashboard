@@ -17,28 +17,11 @@ except KeyError:
 def index():
     if sl_api_key_realtime_dep:
         error = None
-        bandhv_next = []
         mids_next = []
-        grondal_next = []
-        try:
-            bandhv = get("https://api.sl.se/api2/realtimedepartures.json?key=" + sl_api_key_realtime_dep +
-                         "&siteid=1867&timewindow=60").json()
-        except JSONDecodeError:
-            print("No data fetched for Bandhagsvägen")
-            bandhv = None
-        except ConnectionError:
-            error = "Can't connect to SL server for fetching latest data"
-            print(error)
-        else:
-            print bandhv
-            if bandhv and bandhv.get(u'ResponseData', None):
-                for bus in bandhv.get(u'ResponseData', None).get(u'Buses', None):
-                    if bus.get(u'JourneyDirection', 0) == 2:
-                        print(bus)
-                        bandhv_next.append(bus.get(u'DisplayTime', None))
+        
         try:
             mids = get("https://api.sl.se/api2/realtimedepartures.json?key=" + sl_api_key_realtime_dep +
-                        "&siteid=9192&timewindow=60").json()
+                        "&siteid=9264&timewindow=30").json()
         except JSONDecodeError:
             print("No data fetched for midsommarkransen")
             mids = None
@@ -53,20 +36,9 @@ def index():
                         print(metro)
                         mids_next.append(metro.get(u'DisplayTime', None))
 
-            if mids and mids.get(u'ResponseData', None):
-                for bus in mids.get(u'ResponseData', None).get(u'Buses', None):
-                    if bus.get(u'JourneyDirection', None) == 1 and bus.get(u'LineNumber', None) == u'161':
-                        print(bus)
-                        grondal_next.append(bus.get(u'DisplayTime', None))
-        is_household_garbage_collection_day = True if datetime.today().weekday() == 0 else False
-        is_foodwaste_collection_day = True if (date.today() - date(2015, 12, 30)).days%14 == 0 else False
         return render_template('index.html',
                                error=error,
-                               bandhv_next=bandhv_next,
                                mids_next=mids_next,
-                               grondal_next=grondal_next,
-                               is_household_garbage_collection_day=is_household_garbage_collection_day,
-                               is_foodwaste_collection_day=is_foodwaste_collection_day,
                               )
     return render_template('index.html', error="Trafiklab API Key not defined. Please add it as an env variable.")
 
