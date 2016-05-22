@@ -18,7 +18,7 @@ def index():
     if sl_api_key_realtime_dep:
         error = None
         bandhv_next = []
-        svedm_next = []
+        mids_next = []
         grondal_next = []
         try:
             bandhv = get("https://api.sl.se/api2/realtimedepartures.json?key=" + sl_api_key_realtime_dep +
@@ -37,24 +37,24 @@ def index():
                         print(bus)
                         bandhv_next.append(bus.get(u'DisplayTime', None))
         try:
-            svedm = get("https://api.sl.se/api2/realtimedepartures.json?key=" + sl_api_key_realtime_dep +
-                        "&siteid=9165&timewindow=60").json()
+            mids = get("https://api.sl.se/api2/realtimedepartures.json?key=" + sl_api_key_realtime_dep +
+                        "&siteid=9192&timewindow=60").json()
         except JSONDecodeError:
-            print("No data fetched for Svedmyra")
-            svedm = None
+            print("No data fetched for midsommarkransen")
+            mids = None
         except ConnectionError:
             error = "Can't connect to SL server for fetching latest data"
             print(error)
         else:
-            print svedm
-            if svedm and svedm.get(u'ResponseData', None):
-                for metro in svedm.get(u'ResponseData', None).get(u'Metros', None):
+            print mids
+            if mids and mids.get(u'ResponseData', None):
+                for metro in mids.get(u'ResponseData', None).get(u'Metros', None):
                     if metro.get(u'JourneyDirection', None) == 1:
                         print(metro)
-                        svedm_next.append(metro.get(u'DisplayTime', None))
+                        mids_next.append(metro.get(u'DisplayTime', None))
 
-            if svedm and svedm.get(u'ResponseData', None):
-                for bus in svedm.get(u'ResponseData', None).get(u'Buses', None):
+            if mids and mids.get(u'ResponseData', None):
+                for bus in mids.get(u'ResponseData', None).get(u'Buses', None):
                     if bus.get(u'JourneyDirection', None) == 1 and bus.get(u'LineNumber', None) == u'161':
                         print(bus)
                         grondal_next.append(bus.get(u'DisplayTime', None))
@@ -63,7 +63,7 @@ def index():
         return render_template('index.html',
                                error=error,
                                bandhv_next=bandhv_next,
-                               svedm_next=svedm_next,
+                               mids_next=mids_next,
                                grondal_next=grondal_next,
                                is_household_garbage_collection_day=is_household_garbage_collection_day,
                                is_foodwaste_collection_day=is_foodwaste_collection_day,
