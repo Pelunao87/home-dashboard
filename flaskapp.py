@@ -20,9 +20,6 @@ def index():
         stockholm = []
 try:
             stockholm = get("api.openweathermap.org/data/2.5/forecast?id=2673723").json()
-        except JSONDecodeError:
-            print("No data fetched for Stockholm")
-            stockholm = None
         except ConnectionError:
             error = "Can't connect to server for fetching latest data"
             print(error)
