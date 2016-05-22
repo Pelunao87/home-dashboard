@@ -9,32 +9,6 @@ app = Flask(__name__)
 app.config.from_pyfile('flaskapp.cfg')
 
 try:
-    api.openweathermap.org = os.environ['API.OPENWEATHERMAP.ORG']
-except KeyError:
-    api.openweathermap.org = None
-
-@app.route('/')
-def index():
-    if api.openweathermap.org:
-        error = None
-        stockholm = []
-try:
-            stockholm = get("api.openweathermap.org/data/2.5/forecast?id=2673723").json()
-        except ConnectionError:
-            error = "Can't connect to server for fetching latest data"
-            print(error)
-        else:
-            print stockholm
-            if stockholm and stockholm.get(u'ResponseData', None):
-                
-
-        return render_template('index.html',
-                               error=error,
-                               mids_next=mids_next,
-                              )
-    return render_template('index.html', error="Trafiklab API Key not defined. Please add it as an env variable.")
-
-try:
     sl_api_key_realtime_dep = os.environ['SL_API_KEY_REALTIMEDEP']
 except KeyError:
     sl_api_key_realtime_dep = None
