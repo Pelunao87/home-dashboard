@@ -32,16 +32,16 @@ section{
   display: block;
 }
 body {
-  background-color: black;
+  background-color: white;
   height: 100%;
-  color: white;
+  color: Black;
   font-family: "Helvetica Neue",Helvetica,"Liberation Sans",Arial,sans-serif;
   font-size: 14px;
   line-height: 1.4;
 }
 
 html {
-  background-color: black;
+  background-color: white;
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
@@ -137,7 +137,7 @@ footer {
     margin: 50px 0 25px;
 }
 h1, h2, h3 {
-  color: white;
+  color: black;
   line-height: 1.38em;
   margin: 1.5em 0 .3em;
 }
